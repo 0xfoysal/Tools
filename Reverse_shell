@@ -1,0 +1,6 @@
+http://pentestmonkey.net/cheat-sheet/shells/reverse-shell-cheat-sheet
+https://github.com/swisskyrepo/PayloadsAllTheThings/blob/master/Methodology%20and%20Resources/Reverse%20Shell%20Cheatsheet.md
+On occasions you get reverse shell but not tty shell, you can get it via the command- python -c ‘import pty; pty.spawn(“/bin/bash”)’
+
+for windows : $ apt install rlwrap -y
+Usage: $ rlwrap nc -lnvp 4444
