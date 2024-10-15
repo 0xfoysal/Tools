@@ -1,0 +1,21 @@
+ftp command directory
+-----------------------
+ls 	List files and directories in the working directory on the FTP server
+cd 	Change our working directory on the FTP server
+get 	Download a file from the FTP server to our device
+put 	Upload a file from our device to the FTP server
+
+enum4linux -U 10.10.212.247 // look how many user
+enum4linux -S 10.10.212.247 // look how many shared file
+
+then next access to the password:
+smbclient //10.10.212.247/tbfc-hr
+
+============ ftp login korar por extract =============
+get .other_user
+mget * //extract all file
+file * // look details all file information
+ Having a look at the header confirms that the PNG header is missing: $ xxd Leave_me_alone.png | head
+Let’s fix it (the correct header for a PNG is 89 50 4E 47 0D 0A 1A 0A): $ printf '\x89\x50\x4E\x47\x0D\x0A\x1A\x0A' | dd conv=notrunc of=Leave_me_alone.png bs=1
+xxd Leave_me_alone.png | head
+
