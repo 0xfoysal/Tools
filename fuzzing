@@ -58,3 +58,5 @@ ffufr() {
   ffuf -c -w "/path/to/SecLists/Discovery/Web-Content/$1" -u "$2/FUZZ" -recursion
 }
 ffufr WORDLISTNAME.txt DOMAIN.com
+
+make a fuzzing : cat url.txt | while read line ; do ffuf -w wordlist -u $line/FUZZ -mc 200 | tee -a out.txt ; done 
