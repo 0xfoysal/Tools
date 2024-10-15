@@ -1,0 +1,12 @@
+How many non-root/non-service/non-daemon users are there?
+***https://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/
+
+ans1: cat /etc/passwd | cut -d: -f1
+ans2: compgen -u | wc -l
+What user is this app running as?
+ans: whoami
+What is the user's shell set as?
+cat /etc/os-release
+lsb_release -a
+
+
