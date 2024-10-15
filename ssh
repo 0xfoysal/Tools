@@ -1,0 +1,7 @@
+
+1. ssh -p PORT user@challenge.nahamcon.com > log.txt
+2. Wait for a while
+3. strings log.txt | grep -i "flag{"
+
+
+ssh -p PORT root@challenge.nahamcon.com -i id_rsa
