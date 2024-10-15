@@ -1,0 +1,5 @@
+Internal Walk-through on TryHackMe
+	> scanning: https://github.com/dievus/threader3000 
+	> python3 dirsearch.py -u 10.10.77.42 -e -x 400,500 -r -t 100
+
+WPScan bruteforce function to locate credentials: wpscan --url 10.10.77.42/blog -e vp,u
