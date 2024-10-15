@@ -51,3 +51,10 @@ or
 wfuzz -c --hw 977 -u http://team.thm -H "Host: FUZZ.team.thm" -w ~/Desktop/git/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
 check subdomain bruthforce: example : wfuzz -c -u http://team.thm -H "Host:FUZZ.team.thm" -w <wordlist>
 wfuzz -c -u http://team.thm/ -w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -H "Host:FUZZ.team.thm" --hw 977
+
+oneliner ffuf
+----------------
+ffufr() {
+  ffuf -c -w "/path/to/SecLists/Discovery/Web-Content/$1" -u "$2/FUZZ" -recursion
+}
+ffufr WORDLISTNAME.txt DOMAIN.com
