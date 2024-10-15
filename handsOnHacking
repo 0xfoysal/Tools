@@ -1,0 +1,2 @@
+amass enum -bruth -d nahamstore.com -o nahamstore.com.txt -p 80,443,8080,8443,8000
+ffuf -u https://www.site.com/FUZZ -w ./raft-large-words.txt -t 75
