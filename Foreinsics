@@ -1,0 +1,15 @@
+
+PCAPXRAY
+------------------------------
+volatility -f Snapshot6.vmem --profile Win7SP1x64 hashdump --output-file=snapshot6.creds
+---------------------
+volatility -f Snapshot6.vmem --profile=Win7SP1x64 hivelist
+//copy virtual and pysical system binary location
+volatility -f Snapshot6.vmem --profile=Win7SP1x64 hashdump -y 0xfffff8a000024010 0x00000000271af010
+-----------------------
+shutdowntime
+volatility -f Snapshot6.vmem --profile=Win7SP1x64 shutdowntime
+
+vol3 -f memdump.mem -o output_folder windows.memnap --dump --pid 7396
+got a file - pid.7396.dmp
+sudo strings -e l pid.7396.dmp | grep -i "ctf_bd{"
