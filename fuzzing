@@ -1,0 +1,53 @@
+wfuzz -c -z file/big.txt http://shibes.xyz/api.php?breed=FUZZ
+wfuzz -c -z file,/opt/AoC-2020/Day-4/wordlist -u http://10.10.9.72/api/site-log.php?date=FUZZ
+Web Staff
+```
+Tools: Dirsearch, ffuf, gobuster, feroxbuster, wfuzz
+
+**gobuster dir -u http://10.10.166.91/ -x php,txt,html -w /data/src/wordlists/big.txt   //wordlist-Apache.fuzz.txt, ApacheTomcat.fuzz.txt, FatwireCMS.fuzz.txt, big.txt
+gobuster dir -u ip -w /usr/share/wordlists/dirb/big.txt -x php,txt,html
+
+gobuster dir -u http://10.10.68.91/ -x php,txt,html -q -t 15 -w /usr/share/wordlists/dirb/common.txt 
+dirb http://192.168.49.130/ /use/share/wordlist/dirb/big.txt (INSTALL IN KALI)
+gobuster dir -u 10.10.136.22 -w /usr/share/wordlists/dirb/common.txt
+gobuster -u http://10.10.76.163 -w /opt/SecLists/Discovery/Web-Content/directory-list-2.3-big.txt
+feroxbuster -u https://10.10.26.199/ -w /opt/SecLists/Discovery/Web-Content/common.txt
+ffuf -u http://10.10.26.199/FUZZ -w /opt/SecLists/Discovery/Web-Content/common.txt 
+hidden file discovery:  dirsearch -u http://192.168.0.102/dvwa -e php 
+gobuster dir -u ip -w directory-list-2.3-medium.txt -t 100 -x txt,jphp,html
+
+gobuster dir -u http://assets.sorare.com -w /usr/share/dirb/wordlists/common.txt -s '200,204,301,302,307,403,500' -e
+
+ffuf -c -w big.txt -u http://10.10.46.108/FUZZ -fs 301
+ffuf -u http://10.10.42.78:8080/:8080/FUZZ -c -w /usr/share/wordlist/SecLists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -fc 403
+
+ffuf -u http://testphp.vulnweb.com/FUZZ -w seclist/discovery/web-content/big.txt -recursion
+ffuf -u http://testphp.vulnweb.com/FUZZ -w seclist/discovery/web-content/big.txt -recursion -e .bak
+ffuf -u http://w1.com/w2 -w seclists/discovery/web-content/domain.txt:w1 seclists/discovery/web-content/domain.txt:w2
+***ffuf -u http://testphp.vulnweb.com/FUZZ -w seclist/discovery/web-content/big.txt -recursion -sf
+****ffuf -u http://testphp.vulnweb.com/FUZZ -w seclist/discovery/web-content/big.txt -recursion -sf -p 5
+
+ffuf -c -mc all -ac -w onelistforall.txt -u [target.com]/FUZZ
+wordlist:https://github.com/six2dez/OneListForAll/releases
+
+wfuzz -c -z file,/usr/share/wordlist/SecLists/Discovery/Web-Content/api/objects.txt -X POST --hc 404,400 http://glitch.local/api/items\?FUZZ\=test
+wfuzz -c -z file,/usr/share/wordlists/dirb/big.txt --hw 57 localhost:80/FUZZ/note.txt
+
+ffuf -u http://10.10.202.102/FUZZ -w /usr/share/wordlist/SecLists/Discovery/Web-Content/api/objects.txt -recursion
+
+ffuf -w /usr/share/wordlist/Seclist/Web -X POST http://10.10.85.199/api/items?FUZZ=asdfafsd -fs 45 -mc all
+final : ffuf -w /usr/share/wordlist/SecLists/Discovery/Web-Content/api/objects.txt -X POST -u http://10.10.85.199/api/items?FUZZ=asdfafsd -fs 45 -mc all
+
+fuzzing in kali:
+gobuster vhost -u http://incognito.com/ -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt //dev.domain.com secret
+gobuster dir -u http://incognito.com/secret -w /usr/share/seclists/Discovery/DNS/subdomains-top1million-5000.txt
+---------------
+gobuster http://team.thm/scripts -w /usr/share/wordlists/directory-list-2.3-medium.txt -x txt,js
+gobuster dir -u http://team/thm -w /var/share/wordlists/dirb/common.txt -x txt,php,html
+
+fuzzing hide domain:
+gobuster vhost -u http://team.thm/ -w /usr/share/seclists/Discovery/DNS/subdomains-topmillion-500.txt
+or
+wfuzz -c --hw 977 -u http://team.thm -H "Host: FUZZ.team.thm" -w ~/Desktop/git/SecLists/Discovery/DNS/subdomains-top1million-5000.txt
+check subdomain bruthforce: example : wfuzz -c -u http://team.thm -H "Host:FUZZ.team.thm" -w <wordlist>
+wfuzz -c -u http://team.thm/ -w /usr/share/SecLists/Discovery/DNS/subdomains-top1million-5000.txt -H "Host:FUZZ.team.thm" --hw 977
