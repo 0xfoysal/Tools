@@ -1,0 +1,42 @@
+ip list or range scan kora
+nmap -sL -n 10.10.0-255.101-125 or nmap -sL -n 10.10.12.13/29
+
+fast port scan
+```
+rustscan -u 5000 -a ip -- -sC -sV -Pn
+rustscan -a 10.10.251.44 -- -sC -sV -oA nmap_initial
+--------------------------
+faster scan
+masscan -p 1-65535 10.10.81.70 -e tun0 --rate=1000
+nmap -sC -sV 10.10.81.70 -p 22,80
+---------------------
+echo "<box_ip>   glitch.thm" >> /etc/hosts
+nmap -sV -sC glitch.thm
+--------------
+ports=$(nmap -p- --min-rate=1000 -T4 10.10.234.164 | grep ^[0-9] | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)
+nmap -p$ports -sC -sV -oA glitch 10.10.234.164
+
+su
+echo 10.10.234.164 glitch.thm >> /etc/hosts
+
+echo -e "<ip> thm" | sudo tee -a /etc/hosts
+
+masscan -p1–65535,U:1–65535 10.10.202.174 — rate=1000 -e tun0
+
+nmap -sV -v -script=banner 10.10.202.174
+nmap -sSUC -p111 -oN rpcscan 10.10.202.174
+nmap -p1-100 10.10.202.174 --script banner -oN top100
+
+
+nmap -sC -sV -vvv -script vuln -A 10.10.223.251
+masscan -p1-65535,U:1-65535 10.10.150.250 -e tun0 
+naabu -host hackerone.com
+fullScan(){
+	sudo nmap -sV -sC -T5 -v -p --open -Pn --min-rate 5000 $i -oN $1.nmap
+}
+export ip=
+nmap -sV -sC -T4 $IP -oN nmap_scan.txt 
+nmap -p- -sC -sV 10.10.202.169 
+rustscan -a 10.10.212.113 -- -sCV
+
+backdoor detection : https://github.com/xadhrit/d9scan
