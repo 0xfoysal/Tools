@@ -1,0 +1,9 @@
+MYCTF TOOLS
+=============
+CRYPTOGRAPY: https://github.com/Ganapati/RsaCtfTool
+ sudo apt-get install -y tcpflow
+ sudo apt install binwalk
+ sudo apt install foremost
+ sudo apt install tesseract-ocr
+
+online : https://neatnik.net/salty/#results
