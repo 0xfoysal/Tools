@@ -1,0 +1,3 @@
+forbidden file 
+gogitdumper -u https://constellations.page/.git/ -o .git/
+git log -p > log && cat log | grep -Ei "flag{"
