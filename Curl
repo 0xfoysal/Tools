@@ -1,0 +1,12 @@
+curl 10.10.128.183:8081/ctf/get
+curl --request GET http://10.10.222.121:8081/ctf/get
+
+
+curl -X POST --data "flag_please" 10.10.128.183:8081/ctf/post
+curl --request POST --data "flag_please" http://10.10.222.121:8081/ctf/post
+
+
+curl --request GET -c cookielist. http://10.10.222.121:8081/ctf/getcookie
+curl -c - 10.10.128.183:8081/ctf/getcookie
+
+curl --cookie flagpls=flagpls http://10.10.222.121:8081/ctf/sendcookie
