@@ -38,10 +38,12 @@ which file is -> user_shad.txt
   then take copy - user2:x:1002:1002::/home/user2:/bin/sh
   which name is -> user_pass.txt
 
-4. unshadow user_shad.txt user_pass.txt > userpasswd
-  if change the possition like-
+4. command sample -> sudo unshadow /etc/passwd /etc/shadow > combined.txt
+
+  unshadow user_shad.txt user_pass.txt > userpasswd
+      if change the possition like-
   unshadow user_pass.txt user_shad.txt > userpassd
-  then result different output
+      then result different output
 
 
 
