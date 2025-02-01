@@ -4,3 +4,13 @@ On occasions you get reverse shell but not tty shell, you can get it via the com
 
 for windows : $ apt install rlwrap -y
 Usage: $ rlwrap nc -lnvp 4444
+
+
+https://explainshell.com/explain?cmd=sudo+apt-get+install+dirsearch
+https://www.shellcheck.net/
+
+windows shellbug & information
+https://lolbas-project.github.io/#
+
+Deserialization payload generator for a variety of .NET formatters
+ysoserial
