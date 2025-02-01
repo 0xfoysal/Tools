@@ -1,3 +1,9 @@
+
+beginner
+nmap -p- roblox.com --min-rate 1000
+nmap -p 55,32,443 -sC -sV -oN nmap-tcp roblox.com
+
+
 ip list or range scan kora
 nmap -sL -n 10.10.0-255.101-125 or nmap -sL -n 10.10.12.13/29
 
@@ -40,3 +46,5 @@ nmap -p- -sC -sV 10.10.202.169
 rustscan -a 10.10.212.113 -- -sCV
 
 backdoor detection : https://github.com/xadhrit/d9scan
+
+
