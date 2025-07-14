@@ -70,3 +70,8 @@ nmap -Pn -sC -sV -p 20,80,3306 billing.thm
 
 
 
+2.1 PORT SCAN:
+discovery: sudo nmap -sS -T4 -p- lookup.thm
+versioning os fingerprint: sudo nmap -A -p22,80 lookup.thm 
+vulnersL sudo nmap -sV --script vulners --script-args mincvss=7.5 -p22,80 lookup.thm
+
