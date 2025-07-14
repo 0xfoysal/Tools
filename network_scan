@@ -48,3 +48,22 @@ rustscan -a 10.10.212.113 -- -sCV
 backdoor detection : https://github.com/xadhrit/d9scan
 
 
+nmap 10.10.80.211 -sV -sC
+rustscan -a 10.10.54.93 --ulimit 5000 -- -A
+sudo nmap -Pn -sC -sV 10.10.99.227 -vvv
+sudo nmap -p- -sV -sC -oA nmap/lookup -vv 10.10.238.64
+nmap -sVC -A lookup.thm -oN nmap.txt
+
+sudo masscan -p 1-65535 --interface tun0 --rate 250 10.10.247.158
+sudo nmap -sC -sV -sS -O -A -oN scanned.txt -p22,80 --open --min-rate=1000 10.10.247.158 
+dirsearch -h http://lookup.thm
+
+nmap -sVC -T4 -PN 10.10.34.222 -v
+sudo nmap -sC -sV -sS -O -A -oN scanned.txt -p22,80 --open --min-rate=1000 10.10.247.158 
+
+super fast port scan
+nmap -F -Pn billing.thm
+nmap -Pn -sC -sV -p 20,80,3306 billing.thm
+
+
+
