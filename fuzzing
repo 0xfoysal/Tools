@@ -18,6 +18,11 @@ gobuster dir -u ip -w directory-list-2.3-medium.txt -t 100 -x txt,jphp,html
 
 gobuster dir -u http://assets.sorare.com -w /usr/share/dirb/wordlists/common.txt -s '200,204,301,302,307,403,500' -e
 
+find subdomain : ffuf -w /usr/share/wordlists/seclists/Discovery/DNS/subdomains-top1million-20000.txt -H "Host: FUZZ.lookup.thm" -u http://10.10.238.64 -fs 0
+
+beginner fuzzing
+ffuf -w /usr/share/wordlists/dirb/big.txt -u http://billing.thm/FUZZ -e .php
+
 ffuf -c -w big.txt -u http://10.10.46.108/FUZZ -fs 301
 ffuf -u http://10.10.42.78:8080/:8080/FUZZ -c -w /usr/share/wordlist/SecLists/Discovery/Web-Content/raft-medium-directories-lowercase.txt -fc 403
 
