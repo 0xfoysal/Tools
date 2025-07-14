@@ -1,11 +1,7 @@
-
-beginner
-nmap -p- roblox.com --min-rate 1000
-nmap -p 55,32,443 -sC -sV -oN nmap-tcp roblox.com
-
-
-ip list or range scan kora
-nmap -sL -n 10.10.0-255.101-125 or nmap -sL -n 10.10.12.13/29
+su
+echo 10.10.234.164 glitch.thm >> /etc/hosts
+echo "10.10.80.211 lookup.thm" | sudo tee -a /etc/hosts
+echo -e "<ip> thm" | sudo tee -a /etc/hosts
 
 fast port scan
 ```
@@ -22,10 +18,17 @@ nmap -sV -sC glitch.thm
 ports=$(nmap -p- --min-rate=1000 -T4 10.10.234.164 | grep ^[0-9] | cut -d '/' -f 1 | tr '\n' ',' | sed s/,$//)
 nmap -p$ports -sC -sV -oA glitch 10.10.234.164
 
-su
-echo 10.10.234.164 glitch.thm >> /etc/hosts
 
-echo -e "<ip> thm" | sudo tee -a /etc/hosts
+
+beginner
+nmap -p- roblox.com --min-rate 1000
+nmap -p 55,32,443 -sC -sV -oN nmap-tcp roblox.com
+
+
+ip list or range scan kora
+nmap -sL -n 10.10.0-255.101-125 or nmap -sL -n 10.10.12.13/29
+
+
 
 masscan -p1–65535,U:1–65535 10.10.202.174 — rate=1000 -e tun0
 
