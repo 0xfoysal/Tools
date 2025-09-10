@@ -69,6 +69,10 @@ nmap -F -Pn billing.thm
 nmap -Pn -sC -sV -p 20,80,3306 billing.thm
 
 
+fast scan: nmap ip -n --top-ports 1000 -T3 or
+		   nmap ip -n --top-ports 1000 -T5 -Pn
+
+
 
 2.1 PORT SCAN:
 discovery: sudo nmap -sS -T4 -p- lookup.thm
