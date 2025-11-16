@@ -10,6 +10,9 @@ ssh -i id_rsa kay@10.10.244.248
 rockyou.txt theke 6 character password niyar option:
 grep -E '^.{6}$' rockyou.txt > dic.txt
 ----------------------------------
+linux root LFI/RFI panel theke password ber korar command:
+sudo john --wordlist=/usr/share/wordlists/rockyou.txt hash
+------------------------------------------------------
 
 keepass2john easy_keesy > kp
 john --wordlist=/usr/share/wordlists/rockyou.txt -format:keepass kp
