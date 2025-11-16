@@ -32,6 +32,9 @@ ffuf -u http://w1.com/w2 -w seclists/discovery/web-content/domain.txt:w1 seclist
 ***ffuf -u http://testphp.vulnweb.com/FUZZ -w seclist/discovery/web-content/big.txt -recursion -sf
 ****ffuf -u http://testphp.vulnweb.com/FUZZ -w seclist/discovery/web-content/big.txt -recursion -sf -p 5
 
+
+ffuf -t 100 -u http://10.10.119.56/FUZZ -w /usr/share/wordlists/raft-large-files.txt -fc 403
+
 ffuf -c -mc all -ac -w onelistforall.txt -u [target.com]/FUZZ
 wordlist:https://github.com/six2dez/OneListForAll/releases
 
